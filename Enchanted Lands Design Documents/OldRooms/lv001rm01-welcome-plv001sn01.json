@@ -1,0 +1,13 @@
+{
+	"id": "lv001rm01",
+	"parent": "lv001sn01",
+	"name": "welcome",
+	"description": "",
+	"doors": [
+		{
+			"id": "dr001",
+			"choice": "1",
+			"destination": "lv002rm01-resort-max-closure-plv001rm01"
+		},
+	]
+}

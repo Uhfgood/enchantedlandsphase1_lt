@@ -1,0 +1,6 @@
+res://Scenes/layout_tool.tscn
+res://Scripts/layout_room.gd
+res://Scripts/layout_tool.gd
+res://Scenes/base_scene.tscn
+res://Scenes/room_manager.tscn
+res://Scenes/room_viewer.tscn
