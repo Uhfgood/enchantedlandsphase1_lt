@@ -1,7 +1,7 @@
 class_name Room extends Resource
 
 # Reference to the editor_map node (set by editor_map.gd)
-var editor_map: Node = null
+#var editor_map: Node = null
 
 @export var id : String = "XXX" : set = _set_id
 func _set_id(new_id: String) -> void:

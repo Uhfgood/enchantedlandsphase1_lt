@@ -13,7 +13,7 @@ const ROOMS_DIR = "res://Rooms/"
 var rooms_dict = {}
 var removed_rooms : Array[String] = []
 
-# At the top of editor_map.gd, add:
+# At the top of layout_tool.gd, add:
 var holding_node: Node = Node.new()
 
 func _on_selection_changed():
@@ -86,7 +86,7 @@ func _on_add_room_button_pressed():
 	var new_desc = "There's nothing here yet.  Hit 0 to quit."
 	var new_room = LayoutRoom.Create( new_id, new_label, new_desc )
 	new_room.SetupVisuals()
-	AddRoomToEditorMap( new_room )
+	AddRoomToLayoutTool( new_room )
 	
 	if( Engine.is_editor_hint() ):
 	#{
@@ -296,7 +296,7 @@ func _on_save_button_pressed():
 	#EditorInterface.reload_scene_from_path(scene_path)
 					
 func _ready():
-	print("EditorMap _ready, instance:%s, has_loaded_rooms: %s" % [self, has_loaded_rooms])
+	print("LayoutTool _ready, instance:%s, has_loaded_rooms: %s" % [self, has_loaded_rooms])
 	if rooms:
 		print( "parent= " + rooms.get_parent().name )
 		print("Clearing %d rooms in _ready" % rooms.get_child_count())
@@ -324,10 +324,10 @@ func _ready():
 	#}
 	
 func _enter_tree():
-	print("EditorMap entering tree, instance:%s" % self)
+	print("LayoutTool entering tree, instance:%s" % self)
 
 func _exit_tree():
-	#print("EditorMap exiting tree, instance:%s, Rooms children: %d" % [self, rooms.get_child_count()])
+	#print("LayoutTool exiting tree, instance:%s, Rooms children: %d" % [self, rooms.get_child_count()])
 	has_loaded_rooms = false
 	if rooms:
 		print("Clearing %d rooms in _exit_tree" % rooms.get_child_count())
@@ -350,13 +350,13 @@ func _exit_tree():
 		holding_node.queue_free()
 		holding_node = null
 
-func AddRoomToEditorMap(room: LayoutRoom):
+func AddRoomToLayoutTool(room: LayoutRoom):
 	if not room:
 		print("Error: Room is null")
 		return
 	rooms.add_child(room)
 	room.SetOwner(self)
-	room.editor_map = self
+	room.layout_tool = self
 	#room.SetupVisuals()
 		
 func CreateNewMetaFile( filename ):
@@ -520,7 +520,7 @@ func LoadAllRooms():
 				if room:
 					print( "Room: " + room.id + " created.")
 					rooms_dict[ room.id ] = room
-					AddRoomToEditorMap(room)
+					AddRoomToLayoutTool(room)
 					LoadMetadataForRoom(room, filename)
 				if filename.begins_with("005"):
 					break

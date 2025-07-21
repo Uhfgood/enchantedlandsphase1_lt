@@ -450,7 +450,7 @@ script = ExtResource("3_wmvly")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Cerulea 2" type="Node2D" parent="Rooms"]
-position = Vector2(-1817, -1788)
+position = Vector2(-1764, -1693)
 script = ExtResource("2_qfysh")
 inbound_rooms = ["003_Cerulea", "", "", "", "", "", "", "", ""]
 door_specs = ["ch: 1, dest: 003_Cerulea_3;", "", "", "", "", "", "", "", ""]

@@ -1,8 +1,8 @@
 @tool
 class_name LayoutRoom extends Node2D
 
-# Reference to the editor_map node (set by editor_map.gd)
-var editor_map: Node = null
+# Reference to the layout_tool node (set by layout_tool.gd)
+var layout_tool: Node = null
 
 var roomdata : Room
 
