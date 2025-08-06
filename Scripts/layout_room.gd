@@ -36,7 +36,7 @@ func update_description_label() -> void:
 func _set_door_specs( doorspecs : Array ):
 	door_specs = doorspecs
 	
-var edoors = {}
+var layout_doors = {}
 func GetDoorData() -> Array:
 	var door_data = []
 	for door in self.roomdata.doors:
@@ -191,7 +191,7 @@ static func CreateFromJSON( json_name : String )->LayoutRoom:
 			var new_door = LayoutDoor.create( door_name, color )
 			if new_door:
 			#{
-				new_room.edoors[ door.id ] = new_door
+				new_room.layout_doors[ door.id ] = new_door
 				new_room.add_child( new_door )
 			
 			#}  # end if new_door
@@ -218,12 +218,12 @@ static func CreateFromJSON( json_name : String )->LayoutRoom:
 
 func CreateDoorsFromSpecs():
 	
-	for edoor in self.edoors.values():
+	for edoor in self.layout_doors.values():
 		if edoor:
 			edoor.owner = null
 			self.remove_child(edoor)
 			edoor.queue_free()
-	self.edoors.clear()
+	self.layout_doors.clear()
 	
 	if( self.roomdata ):
 		self.roomdata.doors.clear()
@@ -270,7 +270,7 @@ func CreateDoorsFromSpecs():
 		hue += 1.0 / 9
 		var new_door = LayoutDoor.create( id_str, color )
 		if new_door:
-			self.edoors[ id_str ] = new_door
+			self.layout_doors[ id_str ] = new_door
 			self.add_child( new_door )
 			
 			if( get_tree() ):
@@ -305,10 +305,10 @@ func SetOwner( new_owner ):
 			door.owner = new_owner
 	
 func RebuildDoors():
-	self.edoors.clear()
+	self.layout_doors.clear()
 	for child in self.get_children():
 		if child is LayoutDoor:
-			self.edoors.append( child )
+			self.layout_doors.append( child )
 			
 	
 func ClearInboundRooms():
@@ -387,7 +387,7 @@ func RemoveChildren() -> void:
 #{
 	# Explicitly clear the doors array to ensure consistency
 	self.roomdata.doors.clear()	
-	self.edoors.clear()
+	self.layout_doors.clear()
 	
 	# Remove and free all child nodes
 	for child in self.get_children():

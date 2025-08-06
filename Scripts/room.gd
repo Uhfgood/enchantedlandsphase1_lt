@@ -55,20 +55,20 @@ func LoadDataFromJSON( json_name : String ) -> bool:
 	self.original_id = self.id
 	
 	#if( "inbound" in json_data ):
-	##{
+	#{
 		#var i = 0;
 		#for inbound_data in json_data[ "inbound" ]:
-		##{
+		#{
 			#if( i < self.inbound_rooms.size() ):
-			##{
+			#{
 				#self.inbound_rooms[ i ] = inbound_data
 				#i += 1
 				#
-			##}  // end if i < size
+			#}  // end if i < size
 				#
-		##}  // end for inbound_data
+		#}  // end for inbound_data
 		#
-	##}  // end if "inbound" in json_data
+	#}  // end if "inbound" in json_data
 	
 	self.label = json_data[ "label" ]
 	self.description = json_data[ "description" ]
