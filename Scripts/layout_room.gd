@@ -641,3 +641,31 @@ func resize_panel(panel: Panel, vbox: VBoxContainer, name_label: Label, desc_lab
 	# Center the VBoxContainer within the Panel
 	var vbox_x_offset = (total_width - text_width) / 2  # Should be (584 - 560) / 2 = 12
 	vbox.position = Vector2(vbox_x_offset + 1, padding.y / 2)
+
+# calculate the actual center of the panel
+func GetCenterPos() -> Vector2:
+#{
+	var center_pos = Vector2.ZERO;
+	var panel = self.get_node_or_null( "Panel" );
+	var vbox = panel.get_node_or_null( "VBox" );
+	var name_label = vbox.get_node_or_null( "NameLabel" );
+
+	var separator_y = 0;
+	var center_y = 0;
+	if( name_label and vbox and panel ):
+	#{
+		# Calculate the vertical position of the Separator
+		var name_label_height = name_label.get_minimum_size().y;
+		var separation = vbox.get_theme_constant("separation");
+		separator_y = name_label_height + separation;  # Separator's top edge relative to VBox
+
+		# Adjust for VBox's position within the Panel
+		separator_y += vbox.position.y;
+		center_y = panel.size.y / 2;
+	#}
+
+	center_pos = Vector2( self.position.x, ( self.position.y - separator_y ) + center_y );
+
+	return( center_pos );
+	
+#}  // end func GetCenterPos()

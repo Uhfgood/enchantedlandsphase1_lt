@@ -13,6 +13,15 @@ const ROOMS_DIR = "res://Rooms/"
 var rooms_dict = {}
 var removed_rooms : Array[String] = []
 
+func get_room_children() -> Array:
+#{
+	var room_children = []
+	for child in rooms.get_children():
+		if( child is LayoutRoom ):
+			room_children.append( child );
+	return( room_children );
+#}
+
 # At the top of layout_tool.gd, add:
 var holding_node: Node = Node.new()
 
@@ -63,7 +72,7 @@ func get_unique_room_label( base_label : String ) -> String:
 	
 	# Get all existing room labels under room_map
 	var existing_labels = []
-	for child in rooms.get_children():
+	for child in get_room_children():
 		existing_labels.append( child.label )  # Use label property
 	
 	# Increment suffix until a unique label is found
@@ -103,7 +112,7 @@ func _on_add_room_button_pressed():
 # create a dictionary so I can rebuild inbound list later
 func RebuildRoomsDictionary():	
 	rooms_dict.clear()
-	for room in rooms.get_children():
+	for room in get_room_children():
 		rooms_dict[ room.id ] = room 
 
 func AssignInboundRooms():
@@ -200,13 +209,13 @@ func _on_save_button_pressed():
 	RebuildRoomsDictionary()
 
 	# wanted to create all the doors before assinging inbounds
-	for room in rooms.get_children():
+	for room in get_room_children():
 		room.CreateDoorsFromSpecs()
 
 	# assign inbounds before saving any rooms
 	AssignInboundRooms()
 
-	for room in rooms.get_children():
+	for room in get_room_children():
 	#{
 		var filename = room.id + ".meta"
 		if FileAccess.file_exists( ROOMS_DIR + filename ):
@@ -283,7 +292,7 @@ func _on_save_button_pressed():
 	#if what == NOTIFICATION_EDITOR_PRE_SAVE:
 		#print("Editor pre-save, clearing Rooms to prevent saving")
 		#if rooms:
-			#for room in rooms.get_children():
+			#for room in get_room_children():
 				#rooms.remove_child(room)
 				#room.queue_free()
 		## Trigger reload after save
@@ -300,7 +309,7 @@ func _ready():
 	if rooms:
 		print( "parent= " + rooms.get_parent().name )
 		print("Clearing %d rooms in _ready" % rooms.get_child_count())
-		for room in rooms.get_children():
+		for room in get_room_children():
 			rooms.remove_child(room)
 			room.queue_free()
 	if not has_loaded_rooms:
@@ -331,7 +340,7 @@ func _exit_tree():
 	has_loaded_rooms = false
 	if rooms:
 		print("Clearing %d rooms in _exit_tree" % rooms.get_child_count())
-		for room in rooms.get_children():
+		for room in get_room_children():
 			rooms.remove_child(room)
 			room.queue_free()
 	
@@ -492,7 +501,7 @@ func topological_sort_rooms() -> Array:
 	var visited = {}
 	var temp_visited = {}
 
-	for room in rooms.get_children():
+	for room in get_room_children():
 		if not (room.id in visited):
 			_visit_room(room, sorted_rooms, visited, temp_visited)
 	return sorted_rooms
@@ -502,7 +511,7 @@ func LoadAllRooms():
 	print( "Running LoadAllRooms" )
 	rooms_dict.clear()
 	
-	for child in rooms.get_children():
+	for child in get_room_children():
 		rooms.remove_child(child)
 		child.queue_free()
 
@@ -532,6 +541,15 @@ func LoadAllRooms():
 	#var sorted_rooms = topological_sort_rooms()
 
 	# Step 4: Initialize previous positions
-	for room in rooms.get_children():
+	for room in get_room_children():
 		if room is LayoutRoom:
 			room.previous_position = room.position
+	
+	#for room in rooms_dict.values():
+	#	print(room.name, room.position)
+
+	var line_overlay : MultiLine2D = MultiLine2D.new()
+	rooms.add_child( line_overlay )
+	#line_overlay.name = "LineOverlay"
+	#line_overlay.set_owner( self )
+	line_overlay.InitLines( rooms_dict )
