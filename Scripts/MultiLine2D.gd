@@ -90,12 +90,12 @@ func UpdateLines( room_id : String, do_redraw : bool = true ):
 						
 		var dest_room : LayoutRoom = rooms[ door.destination ];
 		
-		var room_pos = Vector2( room.position.x, ( room.position.y - separator_y ) + center_y );
-		var dest_pos = Vector2( dest_room.position.x, ( dest_room.position.y - separator_y ) + center_y );
+		#var room_pos = Vector2( room.position.x, ( room.position.y - separator_y ) + center_y );
+		#var dest_pos = Vector2( dest_room.position.x, ( dest_room.position.y - separator_y ) + center_y );
 		var start_pos = room.GetCenterPos(); #room_pos; #room.position
 		var end_pos = dest_room.GetCenterPos(); #dest_pos; #dest_room.position
-		print( "room: " + room.id + ", room position = " + str( room.position ) + ", room center = " + str( room.GetCenterPos() ) )
-		print( "dest room: " + dest_room.id + ", dest position = " + str( dest_room.position ) + ", dest room center = " + str( dest_room.GetCenterPos() ) )
+		#print( "room: " + room.id + ", room position = " + str( room.position ) + ", room center = " + str( room.GetCenterPos() ) )
+		#print( "dest room: " + dest_room.id + ", dest position = " + str( dest_room.position ) + ", dest room center = " + str( dest_room.GetCenterPos() ) )
 		
 		if not line_collection.has( door.destination ):
 			# Assign next color from palette, cycle through palette
@@ -120,7 +120,7 @@ func UpdateLines( room_id : String, do_redraw : bool = true ):
 			# check to see that the room lines collection has an entry for the current room
 			# and then update the end position of that particular line, to the room's current position.
 			if( lines[ inbound ].has( room.id ) ):
-				lines[ inbound ][ room.id ][ "end" ] = room.position
+				lines[ inbound ][ room.id ][ "end" ] = room.GetCenterPos() #room.position
 		#}
 	#}
 	

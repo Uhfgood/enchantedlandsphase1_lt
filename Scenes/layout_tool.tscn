@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bl74drpt5u5vp"]
+[gd_scene load_steps=5 format=3 uid="uid://bl74drpt5u5vp"]
 
 [ext_resource type="Script" path="res://Scripts/layout_tool.gd" id="1_jex0b"]
 [ext_resource type="Script" path="res://Scripts/layout_room.gd" id="2_2nukr"]
 [ext_resource type="Script" path="res://Scripts/layout_door.gd" id="3_0pr41"]
+[ext_resource type="Script" path="res://Scripts/MultiLine2D.gd" id="4_p3fhn"]
 
 [node name="LayoutTool" type="Node"]
 script = ExtResource("1_jex0b")
@@ -74,7 +75,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Hubert Home" type="Node2D" parent="Rooms"]
-position = Vector2(-1470, -6297)
+position = Vector2(-674, -6187)
 script = ExtResource("2_2nukr")
 inbound_rooms = ["001_Enchanted_Lands_1", "", "", "", "", "", "", "", ""]
 door_specs = ["ch: 1, dest: 002_Hubert_Home_1;", "ch: 2, dest: 002_Hubert_Home_2;", "", "", "", "", "", "", ""]
@@ -450,7 +451,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Cerulea 2" type="Node2D" parent="Rooms"]
-position = Vector2(-1764, -1693)
+position = Vector2(-1764, -1683)
 script = ExtResource("2_2nukr")
 inbound_rooms = ["003_Cerulea", "", "", "", "", "", "", "", ""]
 door_specs = ["ch: 1, dest: 003_Cerulea_3;", "", "", "", "", "", "", "", ""]
@@ -588,8 +589,7 @@ visible = false
 script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
-[node name="New Location" type="Node2D" parent="Rooms"]
-script = ExtResource("2_2nukr")
-id = "000_New_Location"
-label = "New Location"
-description = "There's nothing here yet.  Hit 0 to quit."
+[node name="LineOverlay" type="Node2D" parent="."]
+position = Vector2(1446, 563)
+script = ExtResource("4_p3fhn")
+metadata/_edit_lock_ = true

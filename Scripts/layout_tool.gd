@@ -6,7 +6,11 @@ var is_removing_room: bool = false
 # Flag to prevent load_all_rooms from running multiple times
 static var has_loaded_rooms = false
 
+@onready var layout_tool = $"."
 @onready var rooms = $Rooms
+
+var line_overlay = null
+
 var currently_selected_room = null
 
 const ROOMS_DIR = "res://Rooms/"
@@ -344,6 +348,13 @@ func _exit_tree():
 			rooms.remove_child(room)
 			room.queue_free()
 	
+	if( line_overlay ): 
+		print( "***removing line overlay" )
+		layout_tool.set_owner( null )
+		layout_tool.remove_child(line_overlay)
+		line_overlay.queue_free()
+		line_overlay = null
+
 	if( Engine.is_editor_hint() ):
 	#{
 		var editor_selection = EditorInterface.get_selection()
@@ -547,9 +558,16 @@ func LoadAllRooms():
 	
 	#for room in rooms_dict.values():
 	#	print(room.name, room.position)
-
-	var line_overlay : MultiLine2D = MultiLine2D.new()
-	rooms.add_child( line_overlay )
-	#line_overlay.name = "LineOverlay"
-	#line_overlay.set_owner( self )
+	
+	var existing_overlay = layout_tool.find_child( "LineOverlay" )
+	if( existing_overlay ):
+		print( "overlay already exists, removing" )
+		layout_tool.remove_child( existing_overlay )
+		
+	line_overlay = MultiLine2D.new()
+	line_overlay.set_meta("_edit_lock_", true)
+	line_overlay.position = rooms.position
+	layout_tool.add_child( line_overlay )
+	line_overlay.name = "LineOverlay"
+	line_overlay.set_owner( self )
 	line_overlay.InitLines( rooms_dict )
