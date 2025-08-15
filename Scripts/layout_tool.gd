@@ -571,3 +571,34 @@ func LoadAllRooms():
 	line_overlay.name = "LineOverlay"
 	line_overlay.set_owner( self )
 	line_overlay.InitLines( rooms_dict )
+
+func UpdateOverlay():
+#{
+	for room in rooms.get_children():
+	#{
+		if room is LayoutRoom:
+			if( room.previous_position != room.position ):
+				line_overlay.UpdateLines( room.id );
+			room.previous_position = room.position;
+			
+	#}  // end for room
+	
+#}  // end func UpdateLines()
+
+var last_zoom_level : float = 1.0;
+var line_thickness : float = 5.0;
+	
+func HandleZoom():
+#{
+	var current_zoom_level = get_viewport().get_final_transform().x.x;
+
+	if( abs( current_zoom_level - last_zoom_level ) > 0.025 ):
+		last_zoom_level = current_zoom_level;
+		line_thickness = 2.0 / current_zoom_level;
+		line_overlay.UpdateAllLines( line_thickness );
+
+#}  // end HandleZoom()
+
+func _process(_delta: float) -> void:
+	UpdateOverlay()
+	HandleZoom()

@@ -25,22 +25,35 @@ var col_idx = 0
 
 func InitLines( room_contents ):
 #{
-	_room_data = room_contents
-	lines.clear()
+	self.z_index = -4096;
+	
+	_room_data = room_contents;
+	lines.clear();
 	
 	for room in rooms.values():
-		UpdateLines( room.id, false )
+		UpdateLines( room.id, 5.0, false );
 	
-	queue_redraw()
+	queue_redraw();
 #}
 
-func UpdateLines( room_id : String, do_redraw : bool = true ):
+func UpdateAllLines( line_thickness : float = 5.0 ):
+#{
+	for room in rooms.values():
+		UpdateLines( room.id, line_thickness, false )
+	
+	queue_redraw()
+
+#}  // end func UpdateAllLines()
+
+func UpdateLines( room_id : String, thickness : float = 5.0, do_redraw : bool = true ):
 #{
 	var room = rooms[ room_id ]
 	
 	# Make sure it's valid
 	if( !room ):
 		return;
+
+	line_width = thickness;
 
 	var panel = room.get_node_or_null( "Panel" );
 	var vbox = panel.get_node_or_null( "VBox" );
@@ -120,12 +133,12 @@ func UpdateLines( room_id : String, do_redraw : bool = true ):
 			# check to see that the room lines collection has an entry for the current room
 			# and then update the end position of that particular line, to the room's current position.
 			if( lines[ inbound ].has( room.id ) ):
-				lines[ inbound ][ room.id ][ "end" ] = room.GetCenterPos() #room.position
+				lines[ inbound ][ room.id ][ "end" ] = room.GetCenterPos(); #room.position
 		#}
 	#}
-	
+		
 	if( do_redraw ):
-		queue_redraw()
+		queue_redraw();
 		
 #}  // end UpdateLines
 

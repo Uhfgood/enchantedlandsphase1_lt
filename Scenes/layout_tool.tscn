@@ -75,7 +75,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Hubert Home" type="Node2D" parent="Rooms"]
-position = Vector2(-674, -6187)
+position = Vector2(-1470, -6297)
 script = ExtResource("2_2nukr")
 inbound_rooms = ["001_Enchanted_Lands_1", "", "", "", "", "", "", "", ""]
 door_specs = ["ch: 1, dest: 002_Hubert_Home_1;", "ch: 2, dest: 002_Hubert_Home_2;", "", "", "", "", "", "", ""]
@@ -325,7 +325,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Hubert Home 6" type="Node2D" parent="Rooms"]
-position = Vector2(-361, -4142)
+position = Vector2(-374, -4115)
 script = ExtResource("2_2nukr")
 inbound_rooms = ["002_Hubert_Home_4", "", "", "", "", "", "", "", ""]
 door_specs = ["ch: 1, dest: 002_Hubert_Home_7;", "", "", "", "", "", "", "", ""]
@@ -343,7 +343,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Hubert Home 7" type="Node2D" parent="Rooms"]
-position = Vector2(-1462, -3616)
+position = Vector2(-1429, -3798)
 script = ExtResource("2_2nukr")
 inbound_rooms = ["002_Hubert_Home_5", "002_Hubert_Home_3", "002_Hubert_Home_2", "002_Hubert_Home_4", "002_Hubert_Home_6", "", "", "", ""]
 door_specs = ["ch: 1, dest: 002_Hubert_Home_8;", "", "", "", "", "", "", "", ""]
@@ -590,6 +590,7 @@ script = ExtResource("3_0pr41")
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="LineOverlay" type="Node2D" parent="."]
+z_index = -4096
 position = Vector2(1446, 563)
 script = ExtResource("4_p3fhn")
 metadata/_edit_lock_ = true
