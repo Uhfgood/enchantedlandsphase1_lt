@@ -542,8 +542,8 @@ func LoadAllRooms():
 					rooms_dict[ room.id ] = room
 					AddRoomToLayoutTool(room)
 					LoadMetadataForRoom(room, filename)
-				if filename.begins_with("005"):
-					break
+				#if filename.begins_with("005"):
+				#	break
 
 	# Step 2: Assign inbound rooms for all rooms
 	AssignInboundRooms()
